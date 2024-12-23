@@ -10,6 +10,27 @@
           <DashboardOutlined />
           <span>工作台</span>
         </a-menu-item>
+        <a-menu-item key="map">
+          <router-link to="/map">
+            <EditOutlined />
+            <span>地图编辑器</span>
+          </router-link>
+        </a-menu-item>
+
+        <a-menu-item key="devices">
+          <router-link to="/devices">
+            <RobotOutlined />
+            <span>设备管理</span>
+          </router-link>
+        </a-menu-item>
+
+        <a-menu-item key="operations">
+          <router-link to="/operations">
+            <ControlOutlined />
+            <span>运营管理</span>
+          </router-link>
+        </a-menu-item>
+        
         <a-sub-menu key="system">
           <template #title>
             <SettingOutlined />

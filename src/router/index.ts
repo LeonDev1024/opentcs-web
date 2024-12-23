@@ -16,6 +16,24 @@ const routes = [
     component: () => import('../layouts/BasicLayout.vue'),
     children: [
       {
+        path: '/map',
+        name: 'MapEditor',
+        component: () => import('../views/map/index.vue'),
+        meta: { title: '地图编辑器', requiresAuth: true }
+      },
+      {
+        path: '/devices',
+        name: 'Devices',
+        component: () => import('../views/devices/index.vue'),
+        meta: { title: '设备管理', requiresAuth: true }
+      },
+      {
+        path: '/operations',
+        name: 'Operations',
+        component: () => import('../views/operations/index.vue'),
+        meta: { title: '运营管理', requiresAuth: true }
+      },
+      {
         path: 'system/users',
         name: 'UserManage',
         component: () => import(/* webpackChunkName: "user-manage" */ '../views/system/user/index.vue'),
