@@ -7,22 +7,28 @@
       </div>
       <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
         <a-menu-item key="dashboard">
-          <DashboardOutlined />
-          <span>工作台</span>
+          <router-link to="/dashboard">
+            <DashboardOutlined />
+            <span>工作台</span>
+          </router-link>
         </a-menu-item>
         <a-menu-item key="map">
           <router-link to="/map">
-            <EditOutlined />
-            <span>地图编辑器</span>
+            <EnvironmentOutlined />
+            <span>地图管理</span>
           </router-link>
         </a-menu-item>
 
-        <a-menu-item key="devices">
-          <router-link to="/devices">
-            <RobotOutlined />
+        <a-sub-menu key="devices">
+          <template #title>
+            <AppstoreOutlined />
             <span>设备管理</span>
-          </router-link>
-        </a-menu-item>
+          </template>
+          <a-menu-item key="robots">
+            <RobotOutlined />
+            <router-link to="/devices/robots">配送机器人</router-link>
+          </a-menu-item>
+        </a-sub-menu>
 
         <a-menu-item key="operations">
           <router-link to="/operations">
@@ -30,7 +36,7 @@
             <span>运营管理</span>
           </router-link>
         </a-menu-item>
-        
+
         <a-sub-menu key="system">
           <template #title>
             <SettingOutlined />
@@ -42,17 +48,38 @@
       </a-menu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header style="background: #fff; padding: 0">
-        <MenuFoldOutlined
-          v-if="!collapsed"
-          class="trigger"
-          @click="() => (collapsed = !collapsed)"
-        />
-        <MenuUnfoldOutlined
-          v-else
-          class="trigger"
-          @click="() => (collapsed = !collapsed)"
-        />
+      <a-layout-header style="background: #fff; padding: 0; display: flex; justify-content: space-between; align-items: center;">
+        <div class="trigger-container">
+          <MenuFoldOutlined
+            v-if="!collapsed"
+            class="trigger"
+            @click="() => (collapsed = !collapsed)"
+          />
+          <MenuUnfoldOutlined
+            v-else
+            class="trigger"
+            @click="() => (collapsed = !collapsed)"
+          />
+        </div>
+        <div class="user-info">
+          <img src="@/assets/user-avatar.png" alt="User Avatar" class="avatar" />
+          <span class="username">{{ username }}</span>
+          <a-dropdown>
+            <a class="ant-dropdown-link" @click.prevent>
+              <DownOutlined />
+            </a>
+            <template #overlay>
+              <a-menu>
+                <a-menu-item>
+                  <router-link to="/profile">个人信息</router-link>
+                </a-menu-item>
+                <a-menu-item>
+                  <a @click="handleLogout">退出登录</a>
+                </a-menu-item>
+              </a-menu>
+            </template>
+          </a-dropdown>
+        </div>
       </a-layout-header>
       <a-layout-content>
         <router-view></router-view>
@@ -66,12 +93,23 @@ import { ref } from 'vue'
 import {
   DashboardOutlined,
   SettingOutlined,
+  EnvironmentOutlined,
+  AppstoreOutlined,
+  RobotOutlined,
+  ControlOutlined,
   MenuFoldOutlined,
-  MenuUnfoldOutlined
+  MenuUnfoldOutlined,
+  DownOutlined
 } from '@ant-design/icons-vue'
 
 const collapsed = ref<boolean>(false)
 const selectedKeys = ref<string[]>(['dashboard'])
+const username = ref('Jason') 
+
+const handleLogout = () => {
+  // Implement logout logic here
+  console.log('User logged out')
+}
 </script>
 
 <style scoped>
@@ -119,4 +157,25 @@ const selectedKeys = ref<string[]>(['dashboard'])
 .ant-layout-sider {
   background: #001529;
 }
-</style> 
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-right: 24px;
+}
+
+.avatar {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.username {
+  margin-right: 8px;
+}
+
+.trigger-container {
+  padding-left: 24px;
+}
+</style>

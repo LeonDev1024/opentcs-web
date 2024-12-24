@@ -16,16 +16,22 @@ const routes = [
     component: () => import('../layouts/BasicLayout.vue'),
     children: [
       {
+        path: '',
+        name: 'Dashboard',
+        component: () => import('../views/dashboard/index.vue'),
+        meta: { title: '工作台', requiresAuth: true }
+      },
+      {
         path: '/map',
         name: 'MapEditor',
         component: () => import('../views/map/index.vue'),
         meta: { title: '地图编辑器', requiresAuth: true }
       },
       {
-        path: '/devices',
-        name: 'Devices',
-        component: () => import('../views/devices/index.vue'),
-        meta: { title: '设备管理', requiresAuth: true }
+        path: '/devices/robots',
+        name: 'Robots',
+        component: () => import('../views/devices/robots/index.vue'),
+        meta: { title: '配送机器人', requiresAuth: true }
       },
       {
         path: '/operations',
